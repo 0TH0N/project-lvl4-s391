@@ -18,7 +18,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 /* eslint-disable no-underscore-dangle */
 const ext = window.__REDUX_DEVTOOLS_EXTENSION__;
-const devtoolMiddleware = ext && ext();
+const devtoolMiddleware = ext === undefined ? state => state : ext();
 /* eslint-enable */
 const initState = state => state;
 
