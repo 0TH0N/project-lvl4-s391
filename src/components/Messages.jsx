@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+// import NewMessage from './NewMessage';
 
 
 const mapStateToProps = (state) => {
@@ -13,7 +14,7 @@ const mapStateToProps = (state) => {
 class Messages extends React.Component {
   renderListOfMessages() {
     const { messages } = this.props;
-    if (messages.length === 0) {
+    if (messages === undefined || messages.length === 0) {
       return null;
     }
     return (
@@ -28,8 +29,10 @@ class Messages extends React.Component {
   render() {
     return (
       <div>
-        messages:
-        {this.renderListOfMessages()}
+        <div>
+          messages:
+          {this.renderListOfMessages()}
+        </div>
       </div>
     );
   }
