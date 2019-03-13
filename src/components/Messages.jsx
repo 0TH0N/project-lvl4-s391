@@ -1,6 +1,7 @@
 import React from 'react';
 // import { connect } from 'react-redux';
 import cn from 'classnames';
+import ScrollBars from 'react-custom-scrollbars';
 import NewMessage from './NewMessage';
 import connect from '../connect';
 
@@ -14,27 +15,41 @@ const mapStateToProps = (state) => {
 
 @connect(mapStateToProps)
 class Messages extends React.Component {
+  constructor(props) {
+    super(props);
+    this.scrollbar = React.createRef();
+  }
+
+  componentDidMount() {
+    this.scrollComponent.scrollToBottom();
+  }
+
+  componentDidUpdate() {
+    this.scrollComponent.scrollToBottom();
+  }
+
   renderListOfMessages() {
     const { messages } = this.props;
     if (messages.length === 0) {
       return null;
     }
     const style = {
-      padding: '10px',
+      paddingLeft: '10px',
+      paddingRight: '10px',
+      width: '100%',
+      wordBreak: 'break-all',
     };
     return (
-      <div>
-        <React.Fragment>
-          {messages.map(message => (
-            <div key={message.id} style={style}>
-              {message.userName}
-              :
-              {' '}
-              {message.text}
-            </div>
-          ))}
-        </React.Fragment>
-      </div>
+      <React.Fragment>
+        {messages.map(message => (
+          <div key={message.id} style={style}>
+            {message.userName}
+            :
+            {' '}
+            {message.text}
+          </div>
+        ))}
+      </React.Fragment>
     );
   }
 
@@ -50,17 +65,23 @@ class Messages extends React.Component {
       'rounded-0': true,
     });
 
+    const newMessageStyle = {
+      position: 'absolute',
+      bottom: 0,
+      width: '100%',
+      margin: '20px',
+    };
+
     return (
-      <div className="rounded-0">
+      <div className="rounded-0" style={{ height: window.screen.height * 0.7 }}>
         <div className={messagesTitleClasses}>Messages:</div>
-        <div>{this.renderListOfMessages()}</div>
-        <div style={{
-          position: 'absolute',
-          bottom: 0,
-          width: '100%',
-          margin: '20px',
-        }}
+        <ScrollBars
+          style={{ height: window.screen.height * 0.55 }}
+          ref={(c) => { this.scrollComponent = c; }}
         >
+          {this.renderListOfMessages()}
+        </ScrollBars>
+        <div style={newMessageStyle}>
           <NewMessage />
         </div>
       </div>

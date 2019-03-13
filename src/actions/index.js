@@ -22,3 +22,7 @@ export const sendMessage = ({ message }) => async (dispatch) => {
 
 
 export const newMessageReceiving = createAction('NEW_MESSAGE_RECEVEING');
+
+
+export const showInfoModal = createAction('INFO_MODAL_SHOWING');
+export const hideInfoModal = createAction('INFO_MODAL_HIDING');

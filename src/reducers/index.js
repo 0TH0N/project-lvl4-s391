@@ -42,10 +42,31 @@ const currentChannelId = handleActions({
 }, 0);
 
 
+const infoModal = handleActions({
+  [actions.showInfoModal](state, { payload: { title, message, color } }) {
+    return {
+      state: 'show',
+      title,
+      message,
+      color,
+    };
+  },
+  [actions.hideInfoModal]() {
+    return {
+      state: 'hide',
+      title: 'none',
+      message: 'none',
+      color: 'none',
+    };
+  },
+}, {});
+
+
 export default combineReducers({
   messageSendingState,
   channels,
   messages,
   currentChannelId,
+  infoModal,
   form: formReducer,
 });
