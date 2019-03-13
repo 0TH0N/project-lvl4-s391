@@ -1,6 +1,5 @@
 import React from 'react';
-// import { connect } from 'react-redux';
-import cn from 'classnames';
+// import { Alert } from 'react-bootstrap';
 import ScrollBars from 'react-custom-scrollbars';
 import NewMessage from './NewMessage';
 import connect from '../connect';
@@ -29,7 +28,7 @@ class Messages extends React.Component {
   }
 
   renderListOfMessages() {
-    const { messages } = this.props;
+    const { messages, tabId } = this.props;
     if (messages.length === 0) {
       return null;
     }
@@ -41,7 +40,7 @@ class Messages extends React.Component {
     };
     return (
       <React.Fragment>
-        {messages.map(message => (
+        {messages.filter(message => message.channelId === tabId).map(message => (
           <div key={message.id} style={style}>
             {message.userName}
             :
@@ -54,16 +53,7 @@ class Messages extends React.Component {
   }
 
   render() {
-    const messagesTitleClasses = cn({
-      'list-group-item': true,
-      'd-flex': true,
-      'flex-row': true,
-      'bg-dark': true,
-      'font-weight-bold': true,
-      'font-italic': true,
-      'text-white': true,
-      'rounded-0': true,
-    });
+    const { tabId } = this.props;
 
     const newMessageStyle = {
       position: 'absolute',
@@ -73,16 +63,16 @@ class Messages extends React.Component {
     };
 
     return (
-      <div className="rounded-0" style={{ height: window.screen.height * 0.7 }}>
-        <div className={messagesTitleClasses}>Messages:</div>
+      <div className="rounded-0" style={{ minHeight: window.screen.height * 0.5 }}>
         <ScrollBars
-          style={{ height: window.screen.height * 0.55 }}
           ref={(c) => { this.scrollComponent = c; }}
+          autoHeight
+          autoHeightMin={window.screen.height * 0.4}
         >
           {this.renderListOfMessages()}
         </ScrollBars>
         <div style={newMessageStyle}>
-          <NewMessage />
+          <NewMessage tabId={tabId} />
         </div>
       </div>
     );

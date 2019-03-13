@@ -6,9 +6,10 @@ import connect from '../connect';
 
 
 const mapStateToProps = (state) => {
+  const { currentChannelId, infoModal } = state;
   const props = {
-    currentChannelId: state.currentChannelId,
-    infoModal: state.infoModal,
+    currentChannelId,
+    infoModal,
   };
   return props;
 };
@@ -30,11 +31,11 @@ class NewMessage extends React.Component {
   addMessage = async (values) => {
     const userName = this.context;
     const {
-      sendMessage, showInfoModal, currentChannelId, reset,
+      sendMessage, showInfoModal, tabId, reset,
     } = this.props;
     const message = {
       id: _.uniqueId(),
-      channelId: currentChannelId,
+      channelId: tabId,
       attributes:
       {
         ...values,

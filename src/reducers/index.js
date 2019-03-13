@@ -45,7 +45,7 @@ const currentChannelId = handleActions({
 const infoModal = handleActions({
   [actions.showInfoModal](state, { payload: { title, message, color } }) {
     return {
-      state: 'show',
+      visibility: 'show',
       title,
       message,
       color,
@@ -53,7 +53,7 @@ const infoModal = handleActions({
   },
   [actions.hideInfoModal]() {
     return {
-      state: 'hide',
+      visibility: 'hide',
       title: 'none',
       message: 'none',
       color: 'none',

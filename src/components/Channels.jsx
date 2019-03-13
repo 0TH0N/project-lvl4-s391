@@ -1,8 +1,8 @@
 import React from 'react';
-import _ from 'lodash';
-import cn from 'classnames';
-// import { connect } from 'react-redux';
-// import * as actions from '../actions';
+import {
+  Tab, Row, Col, Nav, Alert,
+} from 'react-bootstrap';
+import Messages from './Messages';
 import connect from '../connect';
 
 
@@ -11,6 +11,7 @@ const mapStateToProps = (state) => {
   const props = {
     channels,
     currentChannelId,
+    titlesColor: 'primary',
   };
   return props;
 };
@@ -18,50 +19,44 @@ const mapStateToProps = (state) => {
 
 @connect(mapStateToProps)
 class Channels extends React.Component {
-  renderListOfChannels() {
-    const { channels, currentChannelId } = this.props;
-    if (channels.length === 0) {
-      return null;
-    }
-
-    const makeCn = id => cn({
-      'list-group-item': true,
-      'list-group-item-action': true,
-      'rounded-0': true,
-      'text-white': true,
-      'bg-secondary': id !== currentChannelId,
-      'bg-primary': id === currentChannelId,
-      active: id === currentChannelId,
-    });
-
-    return (
-      <div className="list-group rounded-0">
-        <React.Fragment>
-          {channels.map(channel => (
-            <button type="button" key={channel.id} className={makeCn(channel.id)}>
-              {channel.name}
-            </button>
-          ))}
-        </React.Fragment>
-      </div>
-    );
-  }
-
   render() {
-    const channelsTitleClasses = cn({
-      'list-group-item': true,
-      'bg-dark': true,
-      'font-weight-bold': true,
-      'font-italic': true,
-      'text-white': true,
-      'rounded-0': true,
+    const { currentChannelId, channels, titlesColor } = this.props;
+
+    const navChannels = channels.map((channel) => {
+      const { id, name } = channel;
+      return (
+        <Nav.Item key={id}>
+          <Nav.Link eventKey={`${id}`}>{name}</Nav.Link>
+        </Nav.Item>
+      );
+    });
+
+    const tabPanes = channels.map((channel) => {
+      const { id } = channel;
+      return (
+        <Tab.Pane key={id} eventKey={`${id}`}>
+          <Messages tabId={id} />
+        </Tab.Pane>
+      );
     });
 
     return (
-      <div className="rounded-0" style={{ height: window.screen.height * 0.7 }}>
-        <div className={channelsTitleClasses}>Channels:</div>
-        {this.renderListOfChannels()}
-      </div>
+      <Tab.Container id="left-tabs-example" defaultActiveKey={`${currentChannelId}`}>
+        <Row>
+          <Col sm={3}>
+            <Alert variant={titlesColor}>Channels:</Alert>
+            <Nav variant="pills" className="flex-column">
+              {navChannels}
+            </Nav>
+          </Col>
+          <Col sm={9}>
+            <Alert variant={titlesColor}>Messages:</Alert>
+            <Tab.Content>
+              {tabPanes}
+            </Tab.Content>
+          </Col>
+        </Row>
+      </Tab.Container>
     );
   }
 }

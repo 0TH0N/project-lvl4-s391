@@ -4,12 +4,14 @@ import connect from '../connect';
 
 
 const mapStateToProps = (state) => {
-  const { infoModal } = state;
+  const {
+    visibility, title, message, color,
+  } = state.infoModal;
   return ({
-    state: infoModal.state,
-    title: infoModal.title,
-    message: infoModal.message,
-    color: infoModal.color,
+    visibility,
+    title,
+    message,
+    color,
   });
 };
 
@@ -22,11 +24,11 @@ class InfoModal extends React.Component {
 
   render() {
     const {
-      state, title, message, color,
+      visibility, title, message, color,
     } = this.props;
 
     return (
-      <Modal show={state === 'show'} onHide={this.handleClose}>
+      <Modal show={visibility === 'show'} onHide={this.handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
