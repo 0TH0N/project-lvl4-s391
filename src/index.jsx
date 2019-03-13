@@ -6,11 +6,14 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, compose } from 'redux';
 import faker from 'faker';
-import gon from 'gon';
+// import gon from 'gon';
 import Cookies from 'js-cookie';
-// import io from 'socket.io-client';
+import io from 'socket.io-client';
+import _ from 'lodash';
 import reducers from './reducers';
 import App from './components/App';
+import Context from './context';
+import * as actions from './actions';
 
 if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
@@ -24,7 +27,7 @@ const initState = state => state;
 
 const store = createStore(
   reducers,
-  initState(gon),
+  initState(window.gon),
   compose(
     applyMiddleware(thunk),
     devtoolMiddleware,
@@ -35,13 +38,17 @@ const userNameFromCookies = Cookies.get('userName');
 const userName = userNameFromCookies !== undefined ? userNameFromCookies : faker.name.findName();
 Cookies.set('userName', userName);
 
-const UserNameContext = React.createContext();
+const socket = io();
+socket.on('newMessage', (res) => {
+  store.dispatch(actions.newMessageReceiving(res.data));
+});
+
 
 render(
   <Provider store={store}>
-    <UserNameContext.Provider value={userName}>
+    <Context.Provider value={userName}>
       <App />
-    </UserNameContext.Provider>
+    </Context.Provider>
   </Provider>,
   document.getElementById('chat'),
 );

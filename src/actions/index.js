@@ -1,40 +1,24 @@
-/*
-
 import { createAction } from 'redux-actions';
 import axios from 'axios';
+import routes from '../routes';
 
 
-export const addChannelRequest = createAction('CHANNEL_ADD_REQUEST');
-export const addChannelSuccess = createAction('CHANNEL_ADD_SUCCESS');
-export const addChannelFailure = createAction('CHANNEL_ADD_FAILURE');
+export const sendMessageRequest = createAction('MESSAGE_SEND_REQUEST');
+export const sendMessageSuccess = createAction('MESSAGE_SEND_SUCCESS');
+export const sendMessageFailure = createAction('MESSAGE_SEND_FAILURE');
 
-export const addChannel = ({ channel }) => async (dispatch) => {
-  addChannelRequest();
+
+export const sendMessage = ({ message }) => async (dispatch) => {
+  dispatch(sendMessageRequest());
   try {
-    const responce = axios.get('kuda-to tam', channel);
-    dispatch(responce);
+    const url = routes.messagePostURL(message.channelId);
+    await axios.post(url, { data: message });
+    dispatch(sendMessageSuccess({ message }));
   } catch (e) {
+    dispatch(sendMessageFailure());
     throw e;
   }
 };
 
 
-export const removeChannel = ({ id }) => async (dispatch) => {
-  try {
-    const responce = axios.get('kuda-to tam', id);
-    dispatch(responce);
-  } catch (e) {
-    throw e;
-  }
-};
-
-
-export const sendMessage = ({ text }) => async (dispatch) => {
-  try {
-    const responce = axios.post();
-  } catch (e) {
-    throw e;
-  }
-};
-
-*/
+export const newMessageReceiving = createAction('NEW_MESSAGE_RECEVEING');
