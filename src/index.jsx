@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, compose } from 'redux';
 import faker from 'faker';
-// import gon from 'gon';
 import Cookies from 'js-cookie';
 import io from 'socket.io-client';
 import _ from 'lodash';

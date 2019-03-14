@@ -26,3 +26,6 @@ export const newMessageReceiving = createAction('NEW_MESSAGE_RECEVEING');
 
 export const showInfoModal = createAction('INFO_MODAL_SHOWING');
 export const hideInfoModal = createAction('INFO_MODAL_HIDING');
+
+
+export const changeCurrentChannelId = createAction('CURRENT_CHANNEL_ID_CHANGING');

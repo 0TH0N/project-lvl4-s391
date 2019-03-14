@@ -3,6 +3,7 @@ import {
   Tab, Row, Col, Nav, Alert,
 } from 'react-bootstrap';
 import Messages from './Messages';
+import NewMessage from './NewMessage';
 import connect from '../connect';
 
 
@@ -19,6 +20,11 @@ const mapStateToProps = (state) => {
 
 @connect(mapStateToProps)
 class Channels extends React.Component {
+  handleChangeCurrentChannelId = (id) => {
+    const { changeCurrentChannelId } = this.props;
+    changeCurrentChannelId({ id });
+  }
+
   render() {
     const { currentChannelId, channels, titlesColor } = this.props;
 
@@ -45,7 +51,7 @@ class Channels extends React.Component {
         <Row>
           <Col sm={3}>
             <Alert variant={titlesColor}>Channels:</Alert>
-            <Nav variant="pills" className="flex-column">
+            <Nav variant="pills" className="flex-column" onSelect={this.handleChangeCurrentChannelId}>
               {navChannels}
             </Nav>
           </Col>
@@ -54,6 +60,7 @@ class Channels extends React.Component {
             <Tab.Content>
               {tabPanes}
             </Tab.Content>
+            <NewMessage />
           </Col>
         </Row>
       </Tab.Container>

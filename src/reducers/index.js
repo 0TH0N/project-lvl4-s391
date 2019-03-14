@@ -28,17 +28,12 @@ const messages = handleActions({
     return [...state, attributes];
   },
 }, []);
-/*
-const data = {
-  data: {
-    type: 'messages',
-    id: message.id,
-    attributes: message,
-  },
-}; */
+
 
 const currentChannelId = handleActions({
-
+  [actions.changeCurrentChannelId](state, { payload: { id } }) {
+    return id;
+  },
 }, 0);
 
 

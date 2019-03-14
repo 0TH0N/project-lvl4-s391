@@ -2,7 +2,6 @@ import React from 'react';
 // import { Alert } from 'react-bootstrap';
 import ScrollBars from 'react-custom-scrollbars';
 import { ListGroup } from 'react-bootstrap';
-import NewMessage from './NewMessage';
 import connect from '../connect';
 
 
@@ -30,9 +29,6 @@ class Messages extends React.Component {
 
   renderListOfMessages() {
     const { messages, tabId } = this.props;
-    if (messages.length === 0) {
-      return null;
-    }
 
     return (
       <ListGroup style={{ wordBreak: 'break-all' }}>
@@ -49,27 +45,15 @@ class Messages extends React.Component {
   }
 
   render() {
-    const { tabId } = this.props;
-
-    const newMessageStyle = {
-      position: 'absolute',
-      bottom: 0,
-      width: '100%',
-      margin: '20px',
-    };
-
     return (
       <div className="rounded-0" style={{ minHeight: window.screen.height * 0.5 }}>
         <ScrollBars
+          className="rounded-0 border border-secondary"
           ref={(c) => { this.scrollComponent = c; }}
-          autoHeight
-          autoHeightMin={window.screen.height * 0.4}
+          style={{ minHeight: window.screen.height * 0.48 }}
         >
           {this.renderListOfMessages()}
         </ScrollBars>
-        <div style={newMessageStyle}>
-          <NewMessage tabId={tabId} />
-        </div>
       </div>
     );
   }
