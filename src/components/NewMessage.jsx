@@ -41,7 +41,7 @@ class NewMessage extends React.Component {
   };
 
   render() {
-    const { handleSubmit, submitting } = this.props;
+    const { handleSubmit, submitting, pristine } = this.props;
     const ReduxFormControl = ({ input, meta, ...props }) => <Form.Control {...props} {...input} />;
 
     return (
@@ -58,7 +58,7 @@ class NewMessage extends React.Component {
               />
             </Col>
             <Col sm={2}>
-              <Button variant="primary" type="submit" disabled={submitting} className="btn-block">SEND</Button>
+              <Button variant="primary" type="submit" disabled={submitting || pristine} className="btn-block">SEND</Button>
             </Col>
           </Form.Row>
         </Form.Group>

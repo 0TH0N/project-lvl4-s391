@@ -19,7 +19,7 @@ class NewChannel extends React.Component {
   }
 
   render() {
-    const { handleSubmit, submitting } = this.props;
+    const { handleSubmit, submitting, pristine } = this.props;
     const ReduxFormControl = ({ input, meta, ...props }) => <Form.Control {...props} {...input} />;
     return (
       <Form onSubmit={handleSubmit(this.handleAddNewChannel)}>
@@ -38,7 +38,7 @@ class NewChannel extends React.Component {
         <Form.Group>
           <Form.Row>
             <Col sm={12}>
-              <Button variant="primary" type="submit" disabled={submitting} className="btn-block">Add channel</Button>
+              <Button variant="primary" type="submit" disabled={submitting || pristine} className="btn-block">Add channel</Button>
             </Col>
           </Form.Row>
         </Form.Group>
