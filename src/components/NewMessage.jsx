@@ -1,8 +1,5 @@
 import React from 'react';
-import _ from 'lodash';
-import {
-  Form, FormControl, Button, Col,
-} from 'react-bootstrap';
+import { Form, Button, Col } from 'react-bootstrap';
 import { Field, reduxForm } from 'redux-form';
 import Context from '../context';
 import connect from '../connect';
@@ -22,15 +19,12 @@ const mapStateToProps = (state) => {
 class NewMessage extends React.Component {
   static contextType = Context;
 
-
   addMessage = async (values) => {
     const userName = this.context;
     const {
       sendMessage, showInfoModal, currentChannelId, reset,
     } = this.props;
     const message = {
-      id: _.uniqueId(),
-      channelId: currentChannelId,
       attributes:
       {
         ...values,
@@ -38,7 +32,7 @@ class NewMessage extends React.Component {
       },
     };
     try {
-      await sendMessage({ message });
+      await sendMessage(currentChannelId, { message });
       reset();
     } catch (e) {
       showInfoModal({
@@ -49,10 +43,9 @@ class NewMessage extends React.Component {
     }
   };
 
-
   render() {
     const { handleSubmit, submitting } = this.props;
-    const ReduxFormControl = ({ input, meta, ...props }) => <FormControl {...props} {...input} />;
+    const ReduxFormControl = ({ input, meta, ...props }) => <Form.Control {...props} {...input} />;
 
     return (
       <Form onSubmit={handleSubmit(this.addMessage)}>
@@ -68,7 +61,7 @@ class NewMessage extends React.Component {
               />
             </Col>
             <Col sm={2}>
-              <Button variant="primary" type="submit">SEND</Button>
+              <Button variant="primary" type="submit" className="btn-block">SEND</Button>
             </Col>
           </Form.Row>
         </Form.Group>

@@ -8,12 +8,12 @@ export const sendMessageSuccess = createAction('MESSAGE_SEND_SUCCESS');
 export const sendMessageFailure = createAction('MESSAGE_SEND_FAILURE');
 
 
-export const sendMessage = ({ message }) => async (dispatch) => {
+export const sendMessage = (currentChannelId, { message }) => async (dispatch) => {
   dispatch(sendMessageRequest());
   try {
-    const url = routes.messagePostURL(message.channelId);
+    const url = routes.messagePostURL(currentChannelId);
     await axios.post(url, { data: message });
-    dispatch(sendMessageSuccess({ message }));
+    dispatch(sendMessageSuccess());
   } catch (e) {
     dispatch(sendMessageFailure());
     throw e;

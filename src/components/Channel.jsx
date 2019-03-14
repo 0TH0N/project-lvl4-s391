@@ -15,11 +15,11 @@ const mapStateToProps = (state) => {
 
 
 @connect(mapStateToProps)
-class Channels extends React.Component {
+class Channel extends React.Component {
   render() {
     const { id, name } = this.props;
     return (
-      <Nav.Item key={id}>
+      <Nav.Item key={id} style={{ wordBreak: 'break-all' }}>
         <Nav.Link eventKey={`${id}`}>{name}</Nav.Link>
       </Nav.Item>
     );
@@ -27,4 +27,4 @@ class Channels extends React.Component {
 }
 
 
-export default Channels;
+export default Channel;

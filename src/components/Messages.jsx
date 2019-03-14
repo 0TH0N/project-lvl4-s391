@@ -1,5 +1,4 @@
 import React from 'react';
-// import { Alert } from 'react-bootstrap';
 import ScrollBars from 'react-custom-scrollbars';
 import { ListGroup } from 'react-bootstrap';
 import connect from '../connect';
@@ -29,17 +28,19 @@ class Messages extends React.Component {
 
   renderListOfMessages() {
     const { messages, tabId } = this.props;
-
+    const listGroupItems = messages.filter(message => message.channelId === tabId).map(message => (
+      <ListGroup.Item key={message.id}>
+        <span className="font-weight-bold">
+          {message.userName}
+          :
+        </span>
+        {' '}
+        {message.text}
+      </ListGroup.Item>
+    ));
     return (
       <ListGroup style={{ wordBreak: 'break-all' }}>
-        {messages.filter(message => message.channelId === tabId).map(message => (
-          <ListGroup.Item key={message.id}>
-            {message.userName}
-            :
-            {' '}
-            {message.text}
-          </ListGroup.Item>
-        ))}
+        {listGroupItems}
       </ListGroup>
     );
   }

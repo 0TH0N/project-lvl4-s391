@@ -2,11 +2,12 @@ import React from 'react';
 import {
   Tab, Row, Col, Nav, Alert,
 } from 'react-bootstrap';
-import Channel from './Channel';
 import Messages from './Messages';
 import NewMessage from './NewMessage';
 import connect from '../connect';
 import InfoModal from './InfoModal';
+import Channels from './Channels';
+import NewChannel from './NewChannel';
 
 
 const mapStateToProps = (state) => {
@@ -30,11 +31,6 @@ class App extends React.Component {
   render() {
     const { currentChannelId, channels, titlesColor } = this.props;
 
-    const navChannels = channels.map((channel) => {
-      const { id, name } = channel;
-      return <Channel key={id} id={id} name={name} />;
-    });
-
     const tabPanes = channels.map((channel) => {
       const { id } = channel;
       return (
@@ -51,8 +47,9 @@ class App extends React.Component {
             <Col sm={3}>
               <Alert variant={titlesColor}>Channels:</Alert>
               <Nav variant="pills" className="flex-column" onSelect={this.handleChangeCurrentChannelId}>
-                {navChannels}
+                <Channels />
               </Nav>
+              <NewChannel />
             </Col>
             <Col sm={9}>
               <Alert variant={titlesColor}>Messages:</Alert>
