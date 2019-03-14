@@ -20,9 +20,9 @@ class NewMessage extends React.Component {
   static contextType = Context;
 
   addMessage = async (values) => {
-    const userName = this.context;
+    const { userName } = this.context;
     const {
-      sendMessage, showInfoModal, currentChannelId, reset,
+      sendMessage, currentChannelId, reset,
     } = this.props;
     const message = {
       attributes:
@@ -35,11 +35,8 @@ class NewMessage extends React.Component {
       await sendMessage(currentChannelId, { message });
       reset();
     } catch (e) {
-      showInfoModal({
-        title: 'ERROR!!!',
-        message: `Error occured: ${e.message}`,
-        color: 'danger',
-      });
+      // eslint-disable-next-line no-console
+      console.log(e);
     }
   };
 
@@ -61,7 +58,7 @@ class NewMessage extends React.Component {
               />
             </Col>
             <Col sm={2}>
-              <Button variant="primary" type="submit" className="btn-block">SEND</Button>
+              <Button variant="primary" type="submit" disabled={submitting} className="btn-block">SEND</Button>
             </Col>
           </Form.Row>
         </Form.Group>

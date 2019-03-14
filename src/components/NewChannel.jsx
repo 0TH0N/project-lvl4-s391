@@ -38,7 +38,7 @@ class NewChannel extends React.Component {
         <Form.Group>
           <Form.Row>
             <Col sm={12}>
-              <Button variant="primary" type="submit" className="btn-block">Add channel</Button>
+              <Button variant="primary" type="submit" disabled={submitting} className="btn-block">Add channel</Button>
             </Col>
           </Form.Row>
         </Form.Group>

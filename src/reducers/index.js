@@ -5,19 +5,6 @@ import { reducer as formReducer } from 'redux-form';
 import * as actions from '../actions';
 
 
-const messageSendingState = handleActions({
-  [actions.sendMessageRequest]() {
-    return 'requested';
-  },
-  [actions.sendMessageSuccess]() {
-    return 'successfull';
-  },
-  [actions.sendMessageFailure]() {
-    return 'failed';
-  },
-}, 'none');
-
-
 const channels = handleActions({
 
 }, []);
@@ -58,7 +45,6 @@ const infoModal = handleActions({
 
 
 export default combineReducers({
-  messageSendingState,
   channels,
   messages,
   currentChannelId,

@@ -1,14 +1,14 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../assets/application.css';
 import React from 'react';
+import gon from 'gon';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, compose } from 'redux';
 import faker from 'faker';
-import Cookies from 'js-cookie';
+import cookies from 'js-cookie';
 import io from 'socket.io-client';
-import _ from 'lodash';
 import reducers from './reducers';
 import App from './components/App';
 import Context from './context';
@@ -26,26 +26,30 @@ const initState = state => state;
 
 const store = createStore(
   reducers,
-  initState(window.gon),
+  initState(gon),
   compose(
     applyMiddleware(thunk),
     devtoolMiddleware,
   ),
 );
 
-const userNameFromCookies = Cookies.get('userName');
+const userNameFromCookies = cookies.get('userName');
 const userName = userNameFromCookies !== undefined ? userNameFromCookies : faker.name.findName();
-Cookies.set('userName', userName);
-
+if (!userNameFromCookies) {
+  cookies.set('userName', userName);
+}
 const socket = io();
 socket.on('newMessage', (res) => {
   store.dispatch(actions.newMessageReceiving(res.data));
 });
 
+const context = {
+  userName,
+};
 
 render(
   <Provider store={store}>
-    <Context.Provider value={userName}>
+    <Context.Provider value={context}>
       <App />
     </Context.Provider>
   </Provider>,

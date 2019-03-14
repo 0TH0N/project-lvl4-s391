@@ -8,24 +8,27 @@ export const sendMessageSuccess = createAction('MESSAGE_SEND_SUCCESS');
 export const sendMessageFailure = createAction('MESSAGE_SEND_FAILURE');
 
 
+export const showInfoModal = createAction('INFO_MODAL_SHOWING');
+export const hideInfoModal = createAction('INFO_MODAL_HIDING');
+
+
 export const sendMessage = (currentChannelId, { message }) => async (dispatch) => {
-  dispatch(sendMessageRequest());
+  const url = routes.messagePostURL(currentChannelId);
   try {
-    const url = routes.messagePostURL(currentChannelId);
     await axios.post(url, { data: message });
     dispatch(sendMessageSuccess());
   } catch (e) {
-    dispatch(sendMessageFailure());
+    dispatch(showInfoModal({
+      title: 'ERROR!!!',
+      message: `Error occured: ${e.message}`,
+      color: 'danger',
+    }));
     throw e;
   }
 };
 
 
 export const newMessageReceiving = createAction('NEW_MESSAGE_RECEVEING');
-
-
-export const showInfoModal = createAction('INFO_MODAL_SHOWING');
-export const hideInfoModal = createAction('INFO_MODAL_HIDING');
 
 
 export const changeCurrentChannelId = createAction('CURRENT_CHANNEL_ID_CHANGING');
