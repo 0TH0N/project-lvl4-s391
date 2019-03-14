@@ -46,8 +46,6 @@ class NewMessage extends React.Component {
       await sendMessage({ message });
       reset();
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.log(e);
       showInfoModal({
         title: 'ERROR!!!',
         message: `Error occured: ${e.message}`,

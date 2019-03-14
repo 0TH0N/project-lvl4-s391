@@ -1,7 +1,6 @@
 import React from 'react';
 // import { Alert } from 'react-bootstrap';
 import ScrollBars from 'react-custom-scrollbars';
-import { ListGroup } from 'react-bootstrap';
 import NewMessage from './NewMessage';
 import connect from '../connect';
 
@@ -33,18 +32,23 @@ class Messages extends React.Component {
     if (messages.length === 0) {
       return null;
     }
-
+    const style = {
+      paddingLeft: '10px',
+      paddingRight: '10px',
+      width: '100%',
+      wordBreak: 'break-all',
+    };
     return (
-      <ListGroup style={{ wordBreak: 'break-all' }}>
+      <React.Fragment>
         {messages.filter(message => message.channelId === tabId).map(message => (
-          <ListGroup.Item key={message.id}>
+          <div key={message.id} style={style}>
             {message.userName}
             :
             {' '}
             {message.text}
-          </ListGroup.Item>
+          </div>
         ))}
-      </ListGroup>
+      </React.Fragment>
     );
   }
 
