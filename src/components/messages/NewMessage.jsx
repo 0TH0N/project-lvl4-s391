@@ -3,12 +3,13 @@ import { Form, Button, Col } from 'react-bootstrap';
 import { Field, reduxForm } from 'redux-form';
 import Context from '../../context';
 import connect from '../../connect';
+import { getChannelsIds } from '../../selectors';
 
 
-const mapStateToProps = ({ currentChannelId, channels }) => {
+const mapStateToProps = (state) => {
   const props = {
-    channels,
-    currentChannelId,
+    channelsIds: getChannelsIds(state),
+    currentChannelId: state.currentChannelId,
   };
   return props;
 };
@@ -62,11 +63,10 @@ class NewMessage extends React.Component {
 
   render() {
     const {
-      handleSubmit, submitting, pristine, currentChannelId, channels,
+      handleSubmit, submitting, pristine, currentChannelId, channelsIds,
     } = this.props;
     // eslint-disable-next-line radix
     const currenId = typeof currentChannelId === 'number' ? currentChannelId : parseInt(currentChannelId);
-    const channelsIds = channels.map(channel => channel.id);
     if (!channelsIds.includes(currenId)) {
       return <Col>Channel was deleted. Please, choose other channel.</Col>;
     }
