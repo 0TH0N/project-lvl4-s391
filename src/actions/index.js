@@ -68,6 +68,7 @@ export const deleteChannel = channel => async (dispatch) => {
   const url = routes.channelDeleteURL(id);
   try {
     await axios.delete(url);
+    dispatch(changeCurrentChannelId({ id: '1' }));
   } catch (e) {
     dispatch(showInfoModal({
       title: 'DELETE CHANNEL ERROR!!!',

@@ -43,7 +43,7 @@ class App extends React.Component {
 
     return (
       <div>
-        <Tab.Container id="left-tabs-example" defaultActiveKey={`${currentChannelId}`}>
+        <Tab.Container id="left-tabs-example" activeKey={`${currentChannelId}`} onSelect={() => null}>
           <Row>
             <Col sm={3}>
               <Alert variant={titlesColor}>Channels:</Alert>

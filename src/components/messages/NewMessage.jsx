@@ -68,7 +68,7 @@ class NewMessage extends React.Component {
     const currenId = typeof currentChannelId === 'number' ? currentChannelId : parseInt(currentChannelId);
     const channelsIds = channels.map(channel => channel.id);
     if (!channelsIds.includes(currenId)) {
-      return <Col>Please, choose channel.</Col>;
+      return <Col>Channel was deleted. Please, choose other channel.</Col>;
     }
     return (
       <Form onSubmit={handleSubmit(this.handleAddMessage)}>
