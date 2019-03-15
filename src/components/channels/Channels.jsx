@@ -16,8 +16,8 @@ class Channels extends React.Component {
   renderListOfChannels() {
     const { channels } = this.props;
     const navChannels = channels.map((channel) => {
-      const { id, name } = channel;
-      return <Channel key={id} id={id} name={name} />;
+      const { id, name, removable } = channel;
+      return <Channel key={id} id={id} name={name} removable={removable} />;
     });
     return navChannels;
   }

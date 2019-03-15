@@ -45,6 +45,12 @@ socket.on('newMessage', (res) => {
 socket.on('newChannel', (res) => {
   store.dispatch(actions.newChannelAdding(res.data));
 });
+socket.on('renameChannel', (res) => {
+  store.dispatch(actions.channelEditing(res.data));
+});
+socket.on('removeChannel', (res) => {
+  store.dispatch(actions.channelDeleting(res.data));
+});
 
 const context = {
   userName,

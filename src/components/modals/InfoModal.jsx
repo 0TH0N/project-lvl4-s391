@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Button, Alert } from 'react-bootstrap';
-import connect from '../connect';
+import connect from '../../connect';
 
 
 const mapStateToProps = ({ infoModal }) => infoModal;

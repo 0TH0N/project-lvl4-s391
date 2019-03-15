@@ -5,8 +5,9 @@ import Context from '../../context';
 import connect from '../../connect';
 
 
-const mapStateToProps = ({ currentChannelId }) => {
+const mapStateToProps = ({ currentChannelId, channels }) => {
   const props = {
+    channels,
     currentChannelId,
   };
   return props;
@@ -26,8 +27,6 @@ class NewMessage extends React.Component {
 
   // eslint-disable-next-line react/sort-comp
   focus() {
-    // Explicitly focus the text input using the raw DOM API
-    // Note: we're accessing "current" to get the DOM node
     this.textInput.current.focus();
   }
 
@@ -62,8 +61,15 @@ class NewMessage extends React.Component {
   );
 
   render() {
-    const { handleSubmit, submitting, pristine } = this.props;
-
+    const {
+      handleSubmit, submitting, pristine, currentChannelId, channels,
+    } = this.props;
+    // eslint-disable-next-line radix
+    const currenId = typeof currentChannelId === 'number' ? currentChannelId : parseInt(currentChannelId);
+    const channelsIds = channels.map(channel => channel.id);
+    if (!channelsIds.includes(currenId)) {
+      return <Col>Please, choose channel.</Col>;
+    }
     return (
       <Form onSubmit={handleSubmit(this.handleAddMessage)}>
         <Form.Group>

@@ -5,9 +5,11 @@ import {
 import Messages from './messages/Messages';
 import NewMessage from './messages/NewMessage';
 import connect from '../connect';
-import InfoModal from './InfoModal';
+import InfoModal from './modals/InfoModal';
 import Channels from './channels/Channels';
 import NewChannel from './channels/NewChannel';
+import EditChannelModal from './modals/EditChannelModal';
+import DeleteChannelModal from './modals/DeleteChannelModal';
 
 
 const mapStateToProps = ({ channels, currentChannelId }) => {
@@ -60,6 +62,8 @@ class App extends React.Component {
           </Row>
         </Tab.Container>
         <InfoModal />
+        <EditChannelModal />
+        <DeleteChannelModal />
       </div>
     );
   }
