@@ -2,12 +2,12 @@ import React from 'react';
 import {
   Tab, Row, Col, Nav, Alert,
 } from 'react-bootstrap';
-import Messages from './Messages';
-import NewMessage from './NewMessage';
+import Messages from './messages/Messages';
+import NewMessage from './messages/NewMessage';
 import connect from '../connect';
 import InfoModal from './InfoModal';
-import Channels from './Channels';
-import NewChannel from './NewChannel';
+import Channels from './channels/Channels';
+import NewChannel from './channels/NewChannel';
 
 
 const mapStateToProps = (state) => {

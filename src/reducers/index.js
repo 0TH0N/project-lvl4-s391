@@ -6,7 +6,9 @@ import * as actions from '../actions';
 
 
 const channels = handleActions({
-
+  [actions.newChannelAdding](state, { payload: { attributes } }) {
+    return [...state, attributes];
+  },
 }, []);
 
 

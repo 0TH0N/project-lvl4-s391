@@ -1,9 +1,9 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Form, Button, Col } from 'react-bootstrap';
-import connect from '../connect';
+import connect from '../../connect';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = () => {
   const props = {
 
   };
@@ -13,24 +13,36 @@ const mapStateToProps = (state) => {
 
 @connect(mapStateToProps)
 class NewChannel extends React.Component {
-  handleAddNewChannel = () => {
-    const a = 5;
-    return a;
+  handleAddNewChannel = async (values) => {
+    const { addChannel, reset } = this.props;
+    const newChannel = {
+      attributes: {
+        ...values,
+      },
+    };
+    try {
+      await addChannel(newChannel);
+      reset();
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.log(e.message);
+    }
   }
+
+  ReduxFormControl = ({ input, meta, ...props }) => <Form.Control {...props} {...input} />;
 
   render() {
     const { handleSubmit, submitting, pristine } = this.props;
-    const ReduxFormControl = ({ input, meta, ...props }) => <Form.Control {...props} {...input} />;
     return (
       <Form onSubmit={handleSubmit(this.handleAddNewChannel)}>
         <Form.Group>
           <Form.Row>
             <Col sm={12}>
               <Field
-                component={ReduxFormControl}
-                name="channel"
+                component={this.ReduxFormControl}
+                name="name"
                 required
-                submitting={submitting}
+                disabled={submitting}
               />
             </Col>
           </Form.Row>

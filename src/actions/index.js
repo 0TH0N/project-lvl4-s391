@@ -3,11 +3,6 @@ import axios from 'axios';
 import routes from '../routes';
 
 
-export const sendMessageRequest = createAction('MESSAGE_SEND_REQUEST');
-export const sendMessageSuccess = createAction('MESSAGE_SEND_SUCCESS');
-export const sendMessageFailure = createAction('MESSAGE_SEND_FAILURE');
-
-
 export const showInfoModal = createAction('INFO_MODAL_SHOWING');
 export const hideInfoModal = createAction('INFO_MODAL_HIDING');
 
@@ -16,10 +11,9 @@ export const sendMessage = (currentChannelId, { message }) => async (dispatch) =
   const url = routes.messagePostURL(currentChannelId);
   try {
     await axios.post(url, { data: message });
-    dispatch(sendMessageSuccess());
   } catch (e) {
     dispatch(showInfoModal({
-      title: 'ERROR!!!',
+      title: 'SEND MESSAGE ERROR!!!',
       message: `Error occured: ${e.message}`,
       color: 'danger',
     }));
@@ -28,7 +22,21 @@ export const sendMessage = (currentChannelId, { message }) => async (dispatch) =
 };
 
 
-export const newMessageReceiving = createAction('NEW_MESSAGE_RECEVEING');
+export const addChannel = channel => async (dispatch) => {
+  const url = routes.channelAddURL();
+  try {
+    await axios.post(url, { data: channel });
+  } catch (e) {
+    dispatch(showInfoModal({
+      title: 'ADD CHANNEL ERROR!!!',
+      message: `Error occured: ${e.message}`,
+      color: 'danger',
+    }));
+    throw e;
+  }
+};
 
+export const newMessageReceiving = createAction('NEW_MESSAGE_RECEVEING');
+export const newChannelAdding = createAction('NEW_CHANNEL_ADDING');
 
 export const changeCurrentChannelId = createAction('CURRENT_CHANNEL_ID_CHANGING');

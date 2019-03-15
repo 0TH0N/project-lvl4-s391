@@ -1,15 +1,14 @@
 import React from 'react';
 import { Form, Button, Col } from 'react-bootstrap';
 import { Field, reduxForm } from 'redux-form';
-import Context from '../context';
-import connect from '../connect';
+import Context from '../../context';
+import connect from '../../connect';
 
 
 const mapStateToProps = (state) => {
-  const { currentChannelId, infoModal } = state;
+  const { currentChannelId } = state;
   const props = {
     currentChannelId,
-    infoModal,
   };
   return props;
 };
@@ -19,7 +18,21 @@ const mapStateToProps = (state) => {
 class NewMessage extends React.Component {
   static contextType = Context;
 
-  addMessage = async (values) => {
+  constructor(props) {
+    super(props);
+    this.textInput = React.createRef();
+    this.focus = this.focus.bind(this);
+  }
+
+
+  // eslint-disable-next-line react/sort-comp
+  focus() {
+    // Explicitly focus the text input using the raw DOM API
+    // Note: we're accessing "current" to get the DOM node
+    this.textInput.current.focus();
+  }
+
+  handleAddMessage = async (values) => {
     const { userName } = this.context;
     const {
       sendMessage, currentChannelId, reset,
@@ -38,19 +51,27 @@ class NewMessage extends React.Component {
       // eslint-disable-next-line no-console
       console.log(e);
     }
+    this.focus();
   };
+
+  ReduxFormControl = ({ input, meta, ...props }) => (
+    <Form.Control
+      {...props}
+      {...input}
+      ref={this.textInput}
+    />
+  );
 
   render() {
     const { handleSubmit, submitting, pristine } = this.props;
-    const ReduxFormControl = ({ input, meta, ...props }) => <Form.Control {...props} {...input} />;
 
     return (
-      <Form onSubmit={handleSubmit(this.addMessage)}>
+      <Form onSubmit={handleSubmit(this.handleAddMessage)}>
         <Form.Group>
           <Form.Row>
             <Col sm={10}>
               <Field
-                component={ReduxFormControl}
+                component={this.ReduxFormControl}
                 name="text"
                 required
                 disabled={submitting}

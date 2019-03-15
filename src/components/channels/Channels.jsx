@@ -1,7 +1,7 @@
 import React from 'react';
 import ScrollBars from 'react-custom-scrollbars';
 import Channel from './Channel';
-import connect from '../connect';
+import connect from '../../connect';
 
 
 const mapStateToProps = (state) => {

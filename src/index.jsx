@@ -42,6 +42,9 @@ const socket = io();
 socket.on('newMessage', (res) => {
   store.dispatch(actions.newMessageReceiving(res.data));
 });
+socket.on('newChannel', (res) => {
+  store.dispatch(actions.newChannelAdding(res.data));
+});
 
 const context = {
   userName,
