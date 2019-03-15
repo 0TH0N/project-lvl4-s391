@@ -5,8 +5,7 @@ import { faCog } from '@fortawesome/free-solid-svg-icons';
 import connect from '../../connect';
 
 
-const mapStateToProps = (state) => {
-  const { channels, currentChannelId } = state;
+const mapStateToProps = ({ channels, currentChannelId }) => {
   const props = {
     channels,
     currentChannelId,

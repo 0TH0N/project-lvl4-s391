@@ -10,8 +10,7 @@ import Channels from './channels/Channels';
 import NewChannel from './channels/NewChannel';
 
 
-const mapStateToProps = (state) => {
-  const { channels, currentChannelId } = state;
+const mapStateToProps = ({ channels, currentChannelId }) => {
   const props = {
     channels,
     currentChannelId,

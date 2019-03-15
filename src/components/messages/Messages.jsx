@@ -4,9 +4,9 @@ import { ListGroup } from 'react-bootstrap';
 import connect from '../../connect';
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ messages }) => {
   const props = {
-    messages: state.messages,
+    messages,
   };
   return props;
 };

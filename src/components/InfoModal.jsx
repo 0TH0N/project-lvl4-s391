@@ -3,17 +3,7 @@ import { Modal, Button, Alert } from 'react-bootstrap';
 import connect from '../connect';
 
 
-const mapStateToProps = (state) => {
-  const {
-    visibility, title, message, color,
-  } = state.infoModal;
-  return ({
-    visibility,
-    title,
-    message,
-    color,
-  });
-};
+const mapStateToProps = ({ infoModal }) => infoModal;
 
 @connect(mapStateToProps)
 class InfoModal extends React.Component {

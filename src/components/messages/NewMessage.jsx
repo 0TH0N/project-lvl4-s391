@@ -5,8 +5,7 @@ import Context from '../../context';
 import connect from '../../connect';
 
 
-const mapStateToProps = (state) => {
-  const { currentChannelId } = state;
+const mapStateToProps = ({ currentChannelId }) => {
   const props = {
     currentChannelId,
   };

@@ -4,8 +4,7 @@ import Channel from './Channel';
 import connect from '../../connect';
 
 
-const mapStateToProps = (state) => {
-  const { channels } = state;
+const mapStateToProps = ({ channels }) => {
   const props = {
     channels,
   };
