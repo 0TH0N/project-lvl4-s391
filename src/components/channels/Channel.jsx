@@ -4,7 +4,7 @@ import {
 } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import connect from '../../connect';
+import connect from '../../utilities/connect';
 
 
 const mapStateToProps = () => {
@@ -19,26 +19,12 @@ const mapStateToProps = () => {
 class Channel extends React.Component {
   // eslint-disable-next-line react/sort-comp
   editChannel = () => {
-    const {
-      showEditChannelModal, id, name, removable,
-    } = this.props;
-    const channel = {
-      id,
-      name,
-      removable,
-    };
+    const { showEditChannelModal, channel } = this.props;
     showEditChannelModal(channel);
   };
 
   deleteChannel = () => {
-    const {
-      showDeleteChannelModal, id, name, removable,
-    } = this.props;
-    const channel = {
-      id,
-      name,
-      removable,
-    };
+    const { showDeleteChannelModal, channel } = this.props;
     showDeleteChannelModal(channel);
   };
 
@@ -47,13 +33,13 @@ class Channel extends React.Component {
       <FontAwesomeIcon icon={faEdit} onClick={this.editChannel} />
       {' '}
       {/* eslint-disable-next-line */}
-      {this.props.removable && <FontAwesomeIcon icon={faTrashAlt} onClick={this.deleteChannel} />}
+      {this.props.channel.removable && <FontAwesomeIcon icon={faTrashAlt} onClick={this.deleteChannel} />}
     </Tooltip>
   );
 
 
   render() {
-    const { id, name } = this.props;
+    const { channel: { id, name } } = this.props;
     return (
       <Nav.Item key={id} style={{ wordBreak: 'break-all' }}>
         <Nav.Link eventKey={`${id}`}>

@@ -1,6 +1,9 @@
 import React from 'react';
-import { Modal, Button, Alert } from 'react-bootstrap';
-import connect from '../../connect';
+import {
+  Modal, Button, Alert, Form,
+} from 'react-bootstrap';
+import { reduxForm } from 'redux-form';
+import connect from '../../utilities/connect';
 
 
 const mapStateToProps = ({ deleteChannelModal }) => deleteChannelModal;
@@ -8,37 +11,28 @@ const mapStateToProps = ({ deleteChannelModal }) => deleteChannelModal;
 @connect(mapStateToProps)
 class DeleteChannelModal extends React.Component {
   handleClose = () => {
+    const { submitting } = this.props;
+    if (submitting) {
+      return;
+    }
     const { hideDeleteChannelModal } = this.props;
     hideDeleteChannelModal();
   }
 
   handleDeleteChannel = async () => {
-    const {
-      deleteChannel, hideDeleteChannelModal, id, removable,
-      blockButtonsDeleteChannelModal, activateButtonsDeleteChannelModal,
-    } = this.props;
-    if (!removable) {
-      return;
-    }
-    const newChannel = {
-      attributes: {
-        id,
-      },
-    };
+    const { deleteChannel, hideDeleteChannelModal, id } = this.props;
+    const channel = { attributes: { id } };
     try {
-      blockButtonsDeleteChannelModal();
-      await deleteChannel(newChannel);
-      activateButtonsDeleteChannelModal();
+      await deleteChannel(channel);
       hideDeleteChannelModal();
     } catch (e) {
       // eslint-disable-next-line no-console
       console.log(e);
-      activateButtonsDeleteChannelModal();
     }
   }
 
   render() {
-    const { name, blockedButtons } = this.props;
+    const { name, handleSubmit, submitting } = this.props;
     return (
       <Modal show onHide={this.handleClose}>
         <Modal.Header closeButton>
@@ -56,12 +50,14 @@ class DeleteChannelModal extends React.Component {
           </Alert>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={this.handleClose} disabled={blockedButtons}>
-            Cancel
-          </Button>
-          <Button variant="primary" onClick={this.handleDeleteChannel} disabled={blockedButtons}>
-            Delete
-          </Button>
+          <Form onSubmit={handleSubmit(this.handleDeleteChannel)}>
+            <Button variant="secondary" onClick={this.handleClose} disabled={submitting}>
+              Cancel
+            </Button>
+            <Button variant="primary" type="submit" disabled={submitting}>
+              Delete
+            </Button>
+          </Form>
         </Modal.Footer>
       </Modal>
     );
@@ -69,4 +65,6 @@ class DeleteChannelModal extends React.Component {
 }
 
 
-export default DeleteChannelModal;
+export default reduxForm({
+  form: 'deleteModal',
+})(DeleteChannelModal);

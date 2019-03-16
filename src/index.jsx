@@ -11,7 +11,7 @@ import cookies from 'js-cookie';
 import io from 'socket.io-client';
 import reducers from './reducers';
 import App from './components/App';
-import Context from './context';
+import Context from './utilities/context';
 import * as actions from './actions';
 
 if (process.env.NODE_ENV !== 'production') {

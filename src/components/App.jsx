@@ -4,7 +4,7 @@ import {
 } from 'react-bootstrap';
 import Messages from './messages/Messages';
 import NewMessage from './messages/NewMessage';
-import connect from '../connect';
+import connect from '../utilities/connect';
 import InfoModal from './modals/InfoModal';
 import Channels from './channels/Channels';
 import NewChannel from './channels/NewChannel';

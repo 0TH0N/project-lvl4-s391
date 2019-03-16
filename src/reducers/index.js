@@ -90,18 +90,6 @@ const deleteChannelModal = handleActions({
       visibility: 'hide',
     };
   },
-  [actions.blockButtonsDeleteChannelModal](state) {
-    return {
-      ...state,
-      blockedButtons: true,
-    };
-  },
-  [actions.activateButtonsDeleteChannelModal](state) {
-    return {
-      ...state,
-      blockedButtons: false,
-    };
-  },
 }, { visibility: 'hide' });
 
 

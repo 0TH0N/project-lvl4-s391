@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 import axios from 'axios';
-import routes from '../routes';
+import routes from '../utilities/routes';
 
 
 export const changeCurrentChannelId = createAction('CURRENT_CHANNEL_ID_CHANGING');
@@ -13,8 +13,6 @@ export const hideEditChannelModal = createAction('EDIT_CHANNEL_MODAL_HIDING');
 
 export const showDeleteChannelModal = createAction('DELETE_CHANNEL_MODAL_SHOWING');
 export const hideDeleteChannelModal = createAction('DELETE_CHANNEL_MODAL_HIDING');
-export const blockButtonsDeleteChannelModal = createAction('BLOCK_BUTTONS_DELETE_CHANNEL_MODAL');
-export const activateButtonsDeleteChannelModal = createAction('ACTIVATE_BUTTONS_DELETE_CHANNEL_MODAL');
 
 
 export const sendMessage = (currentChannelId, { message }) => async (dispatch) => {

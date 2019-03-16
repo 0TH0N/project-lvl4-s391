@@ -1,7 +1,7 @@
 import React from 'react';
 import ScrollBars from 'react-custom-scrollbars';
 import { ListGroup } from 'react-bootstrap';
-import connect from '../../connect';
+import connect from '../../utilities/connect';
 
 
 const mapStateToProps = ({ messages }) => {
@@ -16,14 +16,23 @@ class Messages extends React.Component {
   constructor(props) {
     super(props);
     this.scrollbar = React.createRef();
+    this.shouldScrollBottom = false;
   }
 
   componentDidMount() {
     this.scrollComponent.scrollToBottom();
   }
 
+  componentWillUpdate() {
+    const scroll = this.scrollComponent.getValues();
+    this.shouldScrollBottom = (scroll.clientHeight + scroll.scrollTop === scroll.scrollHeight);
+    // eslint-disable-next-line react/no-will-update-set-state
+  }
+
   componentDidUpdate() {
-    this.scrollComponent.scrollToBottom();
+    if (this.shouldScrollBottom) {
+      this.scrollComponent.scrollToBottom();
+    }
   }
 
   renderListOfMessages() {
@@ -49,6 +58,7 @@ class Messages extends React.Component {
     return (
       <div className="rounded-0" style={{ minHeight: window.screen.height * 0.5 }}>
         <ScrollBars
+          universal
           className="rounded-0 border border-secondary"
           ref={(c) => { this.scrollComponent = c; }}
           style={{ minHeight: window.screen.height * 0.48 }}

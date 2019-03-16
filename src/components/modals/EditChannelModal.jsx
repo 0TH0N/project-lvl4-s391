@@ -3,7 +3,7 @@ import {
   Modal, Form, Button, Col,
 } from 'react-bootstrap';
 import { Field, reduxForm } from 'redux-form';
-import connect from '../../connect';
+import connect from '../../utilities/connect';
 
 
 const mapStateToProps = ({ editChannelModal }) => editChannelModal;
@@ -31,6 +31,10 @@ class EditChannelModal extends React.Component {
   }
 
   handleClose = () => {
+    const { submitting } = this.props;
+    if (submitting) {
+      return;
+    }
     const { hideEditChannelModal } = this.props;
     hideEditChannelModal();
   }

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Form, Button, Col } from 'react-bootstrap';
 import { Field, reduxForm } from 'redux-form';
-import Context from '../../context';
-import connect from '../../connect';
+import Context from '../../utilities/context';
+import connect from '../../utilities/connect';
 import { getChannelsIds } from '../../selectors';
 
 

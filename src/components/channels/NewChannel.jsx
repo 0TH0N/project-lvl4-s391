@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Form, Button, Col } from 'react-bootstrap';
-import connect from '../../connect';
+import connect from '../../utilities/connect';
 
 const mapStateToProps = () => {
   const props = {
