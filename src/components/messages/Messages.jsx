@@ -15,7 +15,6 @@ const mapStateToProps = ({ messages }) => {
 class Messages extends React.Component {
   constructor(props) {
     super(props);
-    this.scrollbar = React.createRef();
     this.shouldScrollBottom = false;
   }
 
@@ -26,7 +25,6 @@ class Messages extends React.Component {
   componentWillUpdate() {
     const scroll = this.scrollComponent.getValues();
     this.shouldScrollBottom = (scroll.clientHeight + scroll.scrollTop === scroll.scrollHeight);
-    // eslint-disable-next-line react/no-will-update-set-state
   }
 
   componentDidUpdate() {
