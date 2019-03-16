@@ -66,9 +66,13 @@ const editChannelModal = handleActions({
   [actions.hideEditChannelModal]() {
     return {
       visibility: 'hide',
+      name: 'none',
     };
   },
-}, { visibility: 'hide' });
+}, {
+  visibility: 'hide',
+  name: 'none',
+});
 
 
 const deleteChannelModal = handleActions({

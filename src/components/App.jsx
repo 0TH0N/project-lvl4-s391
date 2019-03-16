@@ -12,11 +12,17 @@ import EditChannelModal from './modals/EditChannelModal';
 import DeleteChannelModal from './modals/DeleteChannelModal';
 
 
-const mapStateToProps = ({ channels, currentChannelId }) => {
+const mapStateToProps = (state) => {
+  const {
+    channels, currentChannelId, infoModal, editChannelModal, deleteChannelModal,
+  } = state;
   const props = {
     channels,
     currentChannelId,
     titlesColor: 'primary',
+    infoModal,
+    editChannelModal,
+    deleteChannelModal,
   };
   return props;
 };
@@ -30,7 +36,9 @@ class App extends React.Component {
   }
 
   render() {
-    const { currentChannelId, channels, titlesColor } = this.props;
+    const {
+      currentChannelId, channels, titlesColor, infoModal, editChannelModal, deleteChannelModal,
+    } = this.props;
 
     const tabPanes = channels.map((channel) => {
       const { id } = channel;
@@ -61,9 +69,9 @@ class App extends React.Component {
             </Col>
           </Row>
         </Tab.Container>
-        <InfoModal />
-        <EditChannelModal />
-        <DeleteChannelModal />
+        {infoModal.visibility === 'show' ? <InfoModal /> : null}
+        {editChannelModal.visibility === 'show' ? <EditChannelModal initialValues={{ name: editChannelModal.name }} /> : null}
+        {deleteChannelModal.visibility === 'show' ? <DeleteChannelModal /> : null}
       </div>
     );
   }

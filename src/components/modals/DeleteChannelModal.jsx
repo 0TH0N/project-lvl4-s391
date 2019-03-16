@@ -38,11 +38,9 @@ class DeleteChannelModal extends React.Component {
   }
 
   render() {
-    const {
-      visibility, name, blockedButtons,
-    } = this.props;
+    const { name, blockedButtons } = this.props;
     return (
-      <Modal show={visibility === 'show'} onHide={this.handleClose}>
+      <Modal show onHide={this.handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Delete channel.</Modal.Title>
         </Modal.Header>

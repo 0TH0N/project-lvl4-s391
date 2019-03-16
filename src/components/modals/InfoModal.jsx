@@ -13,12 +13,10 @@ class InfoModal extends React.Component {
   }
 
   render() {
-    const {
-      visibility, title, message, color,
-    } = this.props;
+    const { title, message, color } = this.props;
 
     return (
-      <Modal show={visibility === 'show'} onHide={this.handleClose}>
+      <Modal show onHide={this.handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>

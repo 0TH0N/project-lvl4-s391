@@ -10,11 +10,6 @@ const mapStateToProps = ({ editChannelModal }) => editChannelModal;
 
 @connect(mapStateToProps)
 class EditChannelModal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.textInput = React.createRef();
-  }
-
   editChannel = async (values) => {
     const {
       hideEditChannelModal, editChannel, reset, id,
@@ -44,17 +39,14 @@ class EditChannelModal extends React.Component {
     <Form.Control
       {...props}
       {...input}
-      ref={this.textInput}
     />
   );
 
   render() {
-    const {
-      visibility, handleSubmit, submitting, pristine,
-    } = this.props;
+    const { handleSubmit, submitting, pristine } = this.props;
 
     return (
-      <Modal show={visibility === 'show'} onHide={this.handleClose}>
+      <Modal show onHide={this.handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Editing channel.</Modal.Title>
         </Modal.Header>
