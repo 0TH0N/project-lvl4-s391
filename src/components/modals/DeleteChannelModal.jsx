@@ -54,6 +54,7 @@ class DeleteChannelModal extends React.Component {
             <Button variant="secondary" onClick={this.handleClose} disabled={submitting}>
               Cancel
             </Button>
+            {' '}
             <Button variant="primary" type="submit" disabled={submitting}>
               Delete
             </Button>
