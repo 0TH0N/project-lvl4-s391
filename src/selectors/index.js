@@ -4,5 +4,5 @@ import { createSelector } from 'reselect';
 export const getChannels = state => state.channels;
 export const getChannelsIds = createSelector(
   getChannels,
-  channels => channels.map(channel => channel.id),
+  channels => channels.allIds,
 );

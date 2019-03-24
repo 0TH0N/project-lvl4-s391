@@ -34,15 +34,15 @@ class Messages extends React.Component {
   }
 
   renderListOfMessages() {
-    const { messages, tabId } = this.props;
-    const listGroupItems = messages.filter(message => message.channelId === tabId).map(message => (
-      <ListGroup.Item key={message.id}>
+    const { messages: { byId, allIds }, tabId } = this.props;
+    const listGroupItems = allIds.filter(id => byId[id].channelId === tabId).map(id => (
+      <ListGroup.Item key={id}>
         <span className="font-weight-bold">
-          {message.userName}
+          {byId[id].userName}
           :
         </span>
         {' '}
-        {message.text}
+        {byId[id].text}
       </ListGroup.Item>
     ));
     return (

@@ -14,8 +14,8 @@ const mapStateToProps = ({ channels }) => {
 @connect(mapStateToProps)
 class Channels extends React.Component {
   renderListOfChannels() {
-    const { channels } = this.props;
-    const navChannels = channels.map(channel => <Channel key={channel.id} channel={channel} />);
+    const { channels: { byId, allIds } } = this.props;
+    const navChannels = allIds.map(id => <Channel key={id} channel={byId[id]} />);
     return navChannels;
   }
 

@@ -22,7 +22,26 @@ if (process.env.NODE_ENV !== 'production') {
 const ext = window.__REDUX_DEVTOOLS_EXTENSION__;
 const devtoolMiddleware = ext === undefined ? state => state : ext();
 /* eslint-enable */
-const initState = state => state;
+const initState = (state) => {
+  const { channels, messages, currentChannelId } = state;
+  const newChannelsById = channels
+    .reduce((acc, channel) => ({ ...acc, [channel.id]: channel }), {});
+  const newChannelsAllIds = channels.map(channel => channel.id);
+  const newMessagesById = messages
+    .reduce((acc, message) => ({ ...acc, [message.id]: message }), {});
+  const newMessagesAllIds = messages.map(message => message.id);
+  return {
+    channels: {
+      byId: newChannelsById,
+      allIds: newChannelsAllIds,
+    },
+    messages: {
+      byId: newMessagesById,
+      allIds: newMessagesAllIds,
+    },
+    currentChannelId,
+  };
+};
 
 const store = createStore(
   reducers,

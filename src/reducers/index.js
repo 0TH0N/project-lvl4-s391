@@ -1,31 +1,46 @@
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
 import { reducer as formReducer } from 'redux-form';
+import _ from 'lodash';
 import * as actions from '../actions';
 
 
 const channels = handleActions({
-  [actions.newChannelAdding](state, { payload: { attributes } }) {
-    return [...state, attributes];
+  [actions.newChannelAdding](state, { payload: { id, attributes } }) {
+    return {
+      byId: { ...state.byId, [id]: attributes },
+      allIds: [...state.allIds, id],
+    };
   },
-  [actions.channelEditing](state, { payload: { attributes } }) {
-    const { id } = attributes;
-    const index = state.findIndex(channel => channel.id === id);
-    const lastIndex = state.length;
-    return [...state.slice(0, index), attributes, ...state.slice(index + 1, lastIndex)];
+  [actions.channelEditing](state, { payload: { id, attributes } }) {
+    return {
+      byId: { ...state.byId, [id]: attributes },
+      allIds: state.allIds,
+    };
   },
   [actions.channelDeleting](state, { payload: { id } }) {
-    return state.filter(channel => channel.id !== id);
+    return {
+      byId: _.omit(state.byId, [id]),
+      allIds: state.allIds.filter(channelId => channelId !== id),
+    };
   },
 }, []);
 
 
 const messages = handleActions({
-  [actions.newMessageReceiving](state, { payload: { attributes } }) {
-    return [...state, attributes];
+  [actions.newMessageReceiving](state, { payload: { id, attributes } }) {
+    return {
+      byId: { ...state.byId, [id]: attributes },
+      allIds: [...state.allIds, id],
+    };
   },
   [actions.channelDeleting](state, { payload: { id } }) {
-    return state.filter(message => message.channelId !== id);
+    const { byId, allIds } = state;
+    const newMessagesAllIds = allIds.filter(messageId => byId[messageId].channelId !== id);
+    return {
+      byId: _.pick(byId, newMessagesAllIds),
+      allIds: newMessagesAllIds,
+    };
   },
 }, []);
 

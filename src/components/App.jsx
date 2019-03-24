@@ -40,14 +40,11 @@ class App extends React.Component {
       currentChannelId, channels, titlesColor, infoModal, editChannelModal, deleteChannelModal,
     } = this.props;
 
-    const tabPanes = channels.map((channel) => {
-      const { id } = channel;
-      return (
-        <Tab.Pane key={id} eventKey={`${id}`}>
-          <Messages tabId={id} />
-        </Tab.Pane>
-      );
-    });
+    const tabPanes = channels.allIds.map(id => (
+      <Tab.Pane key={id} eventKey={`${id}`}>
+        <Messages tabId={id} />
+      </Tab.Pane>
+    ));
 
     return (
       <div>
