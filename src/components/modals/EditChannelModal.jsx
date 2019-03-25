@@ -2,12 +2,14 @@ import React from 'react';
 import {
   Modal, Form, Button, Col,
 } from 'react-bootstrap';
-import { Field, reduxForm } from 'redux-form';
+import { Field } from 'redux-form';
 import connect from '../../utilities/connect';
+import reduxFormConnect from '../../utilities/reduxFormConnect';
 
 
 const mapStateToProps = ({ editChannelModal }) => editChannelModal;
 
+@reduxFormConnect('editChannelForm')
 @connect(mapStateToProps)
 class EditChannelModal extends React.Component {
   editChannel = async (values) => {
@@ -87,6 +89,4 @@ class EditChannelModal extends React.Component {
 }
 
 
-export default reduxForm({
-  form: 'editChannelForm',
-})(EditChannelModal);
+export default EditChannelModal;

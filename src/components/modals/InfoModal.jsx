@@ -5,6 +5,7 @@ import connect from '../../utilities/connect';
 
 const mapStateToProps = ({ infoModal }) => infoModal;
 
+
 @connect(mapStateToProps)
 class InfoModal extends React.Component {
   handleClose = () => {

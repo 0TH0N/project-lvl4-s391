@@ -2,12 +2,14 @@ import React from 'react';
 import {
   Modal, Button, Alert, Form,
 } from 'react-bootstrap';
-import { reduxForm } from 'redux-form';
 import connect from '../../utilities/connect';
+import reduxFormConnect from '../../utilities/reduxFormConnect';
 
 
 const mapStateToProps = ({ deleteChannelModal }) => deleteChannelModal;
 
+
+@reduxFormConnect('deleteModal')
 @connect(mapStateToProps)
 class DeleteChannelModal extends React.Component {
   handleClose = () => {
@@ -66,6 +68,4 @@ class DeleteChannelModal extends React.Component {
 }
 
 
-export default reduxForm({
-  form: 'deleteModal',
-})(DeleteChannelModal);
+export default DeleteChannelModal;
