@@ -1,10 +1,9 @@
 import React from 'react';
 import { Form, Button, Col } from 'react-bootstrap';
-import { Field } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import Context from '../../utilities/context';
 import connect from '../../utilities/connect';
 import { getChannelsIds } from '../../selectors';
-import reduxFormConnect from '../../utilities/reduxFormConnect';
 
 
 const mapStateToProps = (state) => {
@@ -16,7 +15,9 @@ const mapStateToProps = (state) => {
 };
 
 
-@reduxFormConnect('newMessage')
+@reduxForm({
+  form: 'newMessage',
+})
 @connect(mapStateToProps)
 class NewMessage extends React.Component {
   static contextType = Context;

@@ -1,8 +1,7 @@
 import React from 'react';
-import { Field } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { Form, Button, Col } from 'react-bootstrap';
 import connect from '../../utilities/connect';
-import reduxFormConnect from '../../utilities/reduxFormConnect';
 
 
 const mapStateToProps = () => {
@@ -13,7 +12,9 @@ const mapStateToProps = () => {
 };
 
 
-@reduxFormConnect('newChannel')
+@reduxForm({
+  form: 'newChannel',
+})
 @connect(mapStateToProps)
 class NewChannel extends React.Component {
   handleAddNewChannel = async (values) => {
