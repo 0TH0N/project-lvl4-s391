@@ -72,7 +72,7 @@ class NewMessage extends React.Component {
       <Form onSubmit={handleSubmit(this.handleAddMessage)}>
         <Form.Group>
           <Form.Row>
-            <Col sm={10}>
+            <Col sm={9} xl={10}>
               <Field
                 component={this.ReduxFormControl}
                 name="text"
@@ -81,7 +81,7 @@ class NewMessage extends React.Component {
                 autoFocus
               />
             </Col>
-            <Col sm={2}>
+            <Col sm={3} xl={2}>
               <Button variant="primary" type="submit" disabled={submitting || pristine} className="btn-block">SEND</Button>
             </Col>
           </Form.Row>
