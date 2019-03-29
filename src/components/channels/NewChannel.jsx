@@ -36,7 +36,7 @@ class NewChannel extends React.Component {
       <Form onSubmit={handleSubmit(this.handleAddNewChannel)}>
         <Form.Group>
           <Form.Row>
-            <Col sm={12}>
+            <Col sm={9}>
               <Field
                 component={this.ReduxFormControl}
                 name="name"
@@ -44,12 +44,8 @@ class NewChannel extends React.Component {
                 disabled={submitting}
               />
             </Col>
-          </Form.Row>
-        </Form.Group>
-        <Form.Group>
-          <Form.Row>
-            <Col sm={12}>
-              <Button variant="primary" type="submit" disabled={submitting || pristine} className="btn-block">Add channel</Button>
+            <Col sm={3}>
+              <Button variant="primary" type="submit" disabled={submitting || pristine} className="btn-block">Add</Button>
             </Col>
           </Form.Row>
         </Form.Group>

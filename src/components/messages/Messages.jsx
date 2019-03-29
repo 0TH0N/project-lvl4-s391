@@ -55,13 +55,8 @@ class Messages extends React.Component {
 
   render() {
     return (
-      <div className="rounded-0" style={{ minHeight: window.screen.height * 0.5 }}>
-        <ScrollBars
-          universal
-          className="rounded-0 border border-secondary"
-          ref={(c) => { this.scrollComponent = c; }}
-          style={{ minHeight: window.screen.height * 0.48 }}
-        >
+      <div className="rounded border border-secondary h-100">
+        <ScrollBars ref={(c) => { this.scrollComponent = c; }}>
           {this.renderListOfMessages()}
         </ScrollBars>
       </div>

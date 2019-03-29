@@ -21,12 +21,8 @@ class Channels extends React.Component {
 
   render() {
     return (
-      <div className="rounded-0" style={{ minHeight: window.screen.height * 0.437 }}>
-        <ScrollBars
-          universal
-          className="rounded-0 border border-secondary"
-          style={{ minHeight: window.screen.height * 0.417 }}
-        >
+      <div className="rounded w-100 h-100 border border-secondary">
+        <ScrollBars>
           {this.renderListOfChannels()}
         </ScrollBars>
       </div>

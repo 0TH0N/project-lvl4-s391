@@ -61,7 +61,7 @@ class NewMessage extends React.Component {
       channelsIds, changeCurrentChannelId, mainChannelId, showInfoModal,
     } = this.props;
     if (!channelsIds.includes(currentChannelId)) {
-      changeCurrentChannelId({ id: `${mainChannelId}` });
+      changeCurrentChannelId({ id: mainChannelId });
       showInfoModal({
         title: 'Channel event',
         message: 'Channel was deleted.',

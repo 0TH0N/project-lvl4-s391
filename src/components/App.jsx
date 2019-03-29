@@ -40,28 +40,32 @@ class App extends React.Component {
       currentChannelId, channels, titlesColor, infoModal, editChannelModal, deleteChannelModal,
     } = this.props;
 
+    const divStyle = { height: window.screen.height * 0.8 };
+
     const tabPanes = channels.allIds.map(id => (
-      <Tab.Pane key={id} eventKey={`${id}`}>
+      <Tab.Pane className="h-100" key={id} eventKey={`${id}`}>
         <Messages tabId={id} />
       </Tab.Pane>
     ));
 
     return (
-      <div>
-        <Tab.Container id="left-tabs-example" activeKey={`${currentChannelId}`} onSelect={() => null}>
-          <Row>
-            <Col sm={3}>
+      <div style={divStyle}>
+        <Tab.Container className="h-100" id="left-tabs-example" activeKey={`${currentChannelId}`} onSelect={() => null}>
+          <Row className="h-100">
+            <Col sm={3} className="h-100">
               <Alert variant={titlesColor}>Channels:</Alert>
-              <Nav variant="pills" className="flex-column" onSelect={this.handleChangeCurrentChannelId}>
+              <Nav variant="pills" className="h-75" onSelect={this.handleChangeCurrentChannelId}>
                 <Channels />
               </Nav>
+              <br />
               <NewChannel />
             </Col>
-            <Col sm={9}>
+            <Col sm={9} className="h-100">
               <Alert variant={titlesColor}>Messages:</Alert>
-              <Tab.Content>
+              <Tab.Content className="h-75">
                 {tabPanes}
               </Tab.Content>
+              <br />
               <NewMessage />
             </Col>
           </Row>
