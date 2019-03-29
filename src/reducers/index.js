@@ -47,6 +47,13 @@ const messages = handleActions({
 
 const currentChannelId = handleActions({
   [actions.changeCurrentChannelId](state, { payload: { id } }) {
+    return parseInt(id, 10);
+  },
+}, 0);
+
+
+const mainChannelId = handleActions({
+  [actions.setMainChannelId](state, { payload: { id } }) {
     return id;
   },
 }, 0);
@@ -113,6 +120,7 @@ export default combineReducers({
   messages,
   currentChannelId,
   infoModal,
+  mainChannelId,
   editChannelModal,
   deleteChannelModal,
   form: formReducer,

@@ -4,6 +4,7 @@ import routes from '../utilities/routes';
 
 
 export const changeCurrentChannelId = createAction('CURRENT_CHANNEL_ID_CHANGING');
+export const setMainChannelId = createAction('MAIN_CHANNEL_ID_GETTING');
 
 export const showInfoModal = createAction('INFO_MODAL_SHOWING');
 export const hideInfoModal = createAction('INFO_MODAL_HIDING');
@@ -25,7 +26,6 @@ export const sendMessage = (currentChannelId, { message }) => async (dispatch) =
       message: `Error occured: ${e.message}`,
       color: 'danger',
     }));
-    throw e;
   }
 };
 
@@ -40,7 +40,6 @@ export const addChannel = channel => async (dispatch) => {
       message: `Error occured: ${e.message}`,
       color: 'danger',
     }));
-    throw e;
   }
 };
 
@@ -56,24 +55,22 @@ export const editChannel = channel => async (dispatch) => {
       message: `Error occured: ${e.message}`,
       color: 'danger',
     }));
-    throw e;
   }
 };
 
 
-export const deleteChannel = channel => async (dispatch) => {
+export const deleteChannel = (channel, mainChannelId) => async (dispatch) => {
   const { id } = channel.attributes;
   const url = routes.channelDeleteURL(id);
   try {
     await axios.delete(url);
-    dispatch(changeCurrentChannelId({ id: '1' }));
+    dispatch(changeCurrentChannelId({ id: `${mainChannelId}` }));
   } catch (e) {
     dispatch(showInfoModal({
       title: 'DELETE CHANNEL ERROR!!!',
       message: `Error occured: ${e.message}`,
       color: 'danger',
     }));
-    throw e;
   }
 };
 

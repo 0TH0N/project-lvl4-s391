@@ -24,14 +24,9 @@ class EditChannelModal extends React.Component {
         ...values,
       },
     };
-    try {
-      await editChannel(newChannel);
-      reset();
-      hideEditChannelModal();
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.log(e.message);
-    }
+    await editChannel(newChannel);
+    reset();
+    hideEditChannelModal();
   }
 
   handleClose = () => {

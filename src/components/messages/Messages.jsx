@@ -4,9 +4,10 @@ import { ListGroup } from 'react-bootstrap';
 import connect from '../../utilities/connect';
 
 
-const mapStateToProps = ({ messages }) => {
+const mapStateToProps = ({ messages, currentChannelId }) => {
   const props = {
     messages,
+    currentChannelId,
   };
   return props;
 };
@@ -34,8 +35,8 @@ class Messages extends React.Component {
   }
 
   renderListOfMessages() {
-    const { messages: { byId, allIds }, tabId } = this.props;
-    const listGroupItems = allIds.filter(id => byId[id].channelId === tabId).map(id => (
+    const { messages: { byId, allIds }, currentChannelId } = this.props;
+    const listGroupItems = allIds.filter(id => byId[id].channelId === currentChannelId).map(id => (
       <ListGroup.Item key={id}>
         <span className="font-weight-bold">
           {byId[id].userName}

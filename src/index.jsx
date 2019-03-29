@@ -40,6 +40,7 @@ const initState = (state) => {
       allIds: newMessagesAllIds,
     },
     currentChannelId,
+    mainChannelId: currentChannelId,
   };
 };
 

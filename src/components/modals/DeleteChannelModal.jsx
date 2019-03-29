@@ -6,7 +6,13 @@ import { reduxForm } from 'redux-form';
 import connect from '../../utilities/connect';
 
 
-const mapStateToProps = ({ deleteChannelModal }) => deleteChannelModal;
+const mapStateToProps = (state) => {
+  const { deleteChannelModal, mainChannelId } = state;
+  return {
+    ...deleteChannelModal,
+    mainChannelId,
+  };
+};
 
 
 @reduxForm({
@@ -24,15 +30,12 @@ class DeleteChannelModal extends React.Component {
   }
 
   handleDeleteChannel = async () => {
-    const { deleteChannel, hideDeleteChannelModal, id } = this.props;
+    const {
+      deleteChannel, hideDeleteChannelModal, id, mainChannelId,
+    } = this.props;
     const channel = { attributes: { id } };
-    try {
-      await deleteChannel(channel);
-      hideDeleteChannelModal();
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.log(e);
-    }
+    await deleteChannel(channel, mainChannelId);
+    hideDeleteChannelModal();
   }
 
   render() {

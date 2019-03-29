@@ -24,13 +24,8 @@ class NewChannel extends React.Component {
         ...values,
       },
     };
-    try {
-      await addChannel(newChannel);
-      reset();
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.log(e.message);
-    }
+    await addChannel(newChannel);
+    reset();
   }
 
   ReduxFormControl = ({ input, meta, ...props }) => <Form.Control {...props} {...input} />;

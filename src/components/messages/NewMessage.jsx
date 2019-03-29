@@ -10,6 +10,7 @@ const mapStateToProps = (state) => {
   const props = {
     channelsIds: getChannelsIds(state),
     currentChannelId: state.currentChannelId,
+    mainChannelId: state.mainChannelId,
   };
   return props;
 };
@@ -25,14 +26,9 @@ class NewMessage extends React.Component {
   constructor(props) {
     super(props);
     this.textInput = React.createRef();
-    this.focus = this.focus.bind(this);
+    this.focus = () => this.textInput.current.focus();
   }
 
-
-  // eslint-disable-next-line react/sort-comp
-  focus() {
-    this.textInput.current.focus();
-  }
 
   handleAddMessage = async (values) => {
     const { userName } = this.context;
@@ -46,13 +42,8 @@ class NewMessage extends React.Component {
         userName,
       },
     };
-    try {
-      await sendMessage(currentChannelId, { message });
-      reset();
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.log(e);
-    }
+    await sendMessage(currentChannelId, { message });
+    reset();
     this.focus();
   };
 
@@ -66,12 +57,16 @@ class NewMessage extends React.Component {
 
   render() {
     const {
-      handleSubmit, submitting, pristine, currentChannelId, channelsIds,
+      handleSubmit, submitting, pristine, currentChannelId,
+      channelsIds, changeCurrentChannelId, mainChannelId, showInfoModal,
     } = this.props;
-    // eslint-disable-next-line radix
-    const currenId = typeof currentChannelId === 'number' ? currentChannelId : parseInt(currentChannelId);
-    if (!channelsIds.includes(currenId)) {
-      return <Col>Channel was deleted. Please, choose other channel.</Col>;
+    if (!channelsIds.includes(currentChannelId)) {
+      changeCurrentChannelId({ id: `${mainChannelId}` });
+      showInfoModal({
+        title: 'Channel event',
+        message: 'Channel was deleted.',
+        color: 'warning',
+      });
     }
     return (
       <Form onSubmit={handleSubmit(this.handleAddMessage)}>
