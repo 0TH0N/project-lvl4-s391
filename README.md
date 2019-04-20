@@ -1,6 +1,6 @@
 This is my final project for "Frontend developer" course in Hexlet.
 
-It's very simple chat how slack made with next frameworks and libries:
+It's very simple chat how slack made with next frameworks and libraries:
 
 1) React.
 
